@@ -17,7 +17,7 @@ galaxy_info:
     #     - all
     - name: Ubuntu
       versions:
-        - xerus
+        - xenial
     # - name: Debian
     #   versions:
     #     - all
