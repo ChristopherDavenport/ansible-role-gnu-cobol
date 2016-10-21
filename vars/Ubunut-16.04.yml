@@ -1,0 +1,19 @@
+---
+
+__gnucobol_dependencies:
+  - libc6
+  - libc6-dev
+  - libcob1
+  - libcob1-dev
+  - libdb5.3
+  - libdb5.3-dev
+  - libgmp10
+  - libgmp-dev
+  - libltd17
+  - libltdl-dev
+  - libncurses5
+  - libncurses5-dev
+  - gcc
+  - g++
+  - make
+  - tar

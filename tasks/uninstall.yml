@@ -1,0 +1,18 @@
+---
+
+- name: Check If Files Exist
+  stat:
+    path: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+  register: uninstallFolder
+
+- name: Uninstall Program From make
+  make:
+    chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+    target: uninstall
+  when: uninstallFolder.stat.exists
+
+
+- name: Remove All Files
+  file:
+    path: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+    state: absent

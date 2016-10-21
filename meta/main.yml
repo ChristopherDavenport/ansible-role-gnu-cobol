@@ -1,0 +1,30 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: ChristopherDavenport
+  description: GnuCOBOL Installer
+  company: Eckerd College
+  license: MIT
+  min_ansible_version: 2.1
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    # - name: Fedora
+    #   versions:
+    #     - all
+    - name: Ubuntu
+      versions:
+        - xerus
+    # - name: Debian
+    #   versions:
+    #     - all
+    # - name: FreeBSD
+    #   versions:
+    #     - 10.2
+  categories:
+    - system
+    - development
+    -

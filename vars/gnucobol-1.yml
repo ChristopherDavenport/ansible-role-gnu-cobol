@@ -1,0 +1,8 @@
+---
+
+__gnucobol_url_base: http://sourceforge.net/projects/open-cobol/files/gnu-cobol/1.1
+__gnucobol_archive_file: gnu-cobol-1.1.tar.gz
+__gnucobol_url: "{{ __gnucobol_url_base }}/{{ __gnucobol_archive_file }}"
+__gnucobol_checksum: md5:c7eba2b9784b651f0c38f16f49a71807
+__gnucobol_unpacked_folder: gnu-cobol-1.1
+__gnucobol_version: "1.1.0"

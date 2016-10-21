@@ -1,0 +1,86 @@
+---
+
+- name: Include version-specific variables for RedHat.
+  include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version >= 6
+
+- name: Include version-specific variables for Ubuntu.
+  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Update Packages To Compile
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ __gnucobol_dependencies }}"
+
+- name: Check Current Gnu Cobol Version
+  command: /usr/local/bin/cobc -V
+  register: __gnucobol_start_version
+  changed_when: False
+  ignore_errors: True
+
+- name: Fail If Incorrect Version Is Already Installed
+  fail:
+    msg: "Incorrect Version Already Installed: Please Rerun as uninstaller for {{ __gnucobol_start_version.stdout_lines[0][-6:] }}"
+  when: __gnucobol_start_version|success and not __gnucobol_version in __gnucobol_start_version.stdout_lines[0]
+
+- name: Command Succeeds and Version is Correct
+  set_fact:
+    __gnucobol_version_already_installed: "{{ __gnucobol_start_version|success and __gnucobol_version in __gnucobol_start_version.stdout_lines[0] }}"
+
+- name: Download GNUCobol Source
+  get_url:
+    url: "{{ __gnucobol_url }}"
+    dest: "{{ gnu_cobol_base }}"
+    checksum: "{{ __gnucobol_checksum }}"
+    timeout: 20
+  register: __gnucobol_get_url_result
+  until: "'OK' in __gnucobol_get_url_result.msg or 'file already exists' in __gnucobol_get_url_result.msg"
+  retries: 5
+  when: not __gnucobol_version_already_installed
+
+- name: Unarchive GNUCobol Source
+  unarchive:
+    src: "{{ gnu_cobol_base }}/{{ __gnucobol_archive_file }}"
+    dest: "{{ gnu_cobol_base }}"
+    remote_src: yes
+  register: __gnucobol_unarchive_result
+  when: not __gnucobol_version_already_installed
+
+- name: Remove Archive
+  file:
+    path: "{{ gnu_cobol_base }}/{{ __gnucobol_archive_file }}"
+    state: absent
+
+- name: Run Configure GnuCobol
+  command: >
+      chdir="{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+      {{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}/configure
+  register: __gnucobol_configureResult
+  when: not __gnucobol_version_already_installed or gnu_cobol_recompile
+
+# - name: Make Clean
+#   make:
+#     chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+#     target: clean
+
+- name: Make GnuCobol
+  make:
+    chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+  register: __gnucobol_makeResult
+  when: not __gnucobol_version_already_installed or gnu_cobol_recompile
+
+- name: Make Check GnuCobol
+  make:
+    chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+    target: check
+  register: __gnucobol_checkResult
+  when: not __gnucobol_version_already_installed or gnu_cobol_recompile
+
+- name: Make Install GnuCobol
+  make:
+    chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+    target: install
+  register: __gnucobol_installResult
+  when: not __gnucobol_version_already_installed or gnu_cobol_recompile
