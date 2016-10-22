@@ -10,12 +10,11 @@ __gnucobol_dependencies:
   - libgmp10
   - libgmp-dev
   - libltdl7
-  - libltdl-dev
+  - libltdl7-dev
   - libncurses5
   - libncurses5-dev
   - wget
   - perl
   - gcc
-  - g++
   - make
   - tar

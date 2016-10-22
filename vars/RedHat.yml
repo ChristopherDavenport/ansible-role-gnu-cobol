@@ -12,6 +12,5 @@ __gnucobol_dependencies:
   - perl
   - wget
   - gcc
-  - gcc-c++
   - make
   - tar
