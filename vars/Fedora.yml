@@ -1,0 +1,17 @@
+---
+
+__gnucobol_dependencies:
+  - gmp
+  - gmp-devel
+  - libdb
+  - libdb-devel
+  - ncurses
+  - ncurses-devel
+  - ncurses-libs
+  - libtool
+  - perl
+  - wget
+  - gcc
+  - gcc-c++
+  - make
+  - tar

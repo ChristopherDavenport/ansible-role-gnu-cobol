@@ -16,7 +16,7 @@ env:
   - distro: ubuntu1404
     init: /sbin/init
     run_opts: ""
-    icu_version: 58
+    icu_version: 2
   - distro: ubuntu1204
     init: /sbin/init
     run_opts: ""
