@@ -1,5 +1,7 @@
 # GnuCOBOL Installer
 
+[![Build Status](https://travis-ci.org/ChristopherDavenport/ansible-role-gnu-cobol.svg?branch=master)](https://travis-ci.org/ChristopherDavenport/ansible-role-gnu-cobol)
+
 Install GnuCOBOL on a system. GnuCOBOL is the recent and well
 received open source compiler for COBOL code. I would like to make
 it easy and seamless for developers on any platform to put this
@@ -83,7 +85,7 @@ gnu_cobol_recompile: False
     - ChristopherDavenport.gnu-cobol
 ```
 
-### License 
+### License
 
 MIT
 
