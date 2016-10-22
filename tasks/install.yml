@@ -76,6 +76,7 @@
   register: __gnucobol_makeResult
   when: not __gnucobol_version_already_installed or gnu_cobol_recompile
 
+
 - debug: var=__gnucobol_makeResult
 
 # - name: Make Check GnuCobol
@@ -90,9 +91,10 @@
 - name: Make Check GnuCobol
   command: >
     chdir="{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
-    /usr/bin/make check
+    /usr/bin/make check TESTSUITEFLAGS="--verbose --jobs=4"
   register: __gnucobol_checkResult
   when: not __gnucobol_version_already_installed or gnu_cobol_recompile
+  ignore_errors: True
 
 - debug: var=__gnucobol_checkResult
 
