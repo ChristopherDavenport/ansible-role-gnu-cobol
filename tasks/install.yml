@@ -8,26 +8,35 @@
 
 - debug: var=ansible_distribution_version
 
-- name: Include version-specific variables for RedHat.
-  include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
-  when:
-    - ansible_os_family == "RedHat"
-    - (ansible_distribution_major_version == "6" or ansible_distribution_major_version == "7")
+- name: Include Operating System Variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - "default.yml"
 
-- name: Include version-specific variables for Ubuntu.
-  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-  when: ansible_distribution == 'Ubuntu'
+# - name: Include version-specific variables for RedHat.
+#   include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+#   when:
+#     - ansible_os_family == "RedHat"
+#     - (ansible_distribution_major_version == "6" or ansible_distribution_major_version == "7")
 
-- name: Include variables for Debian
-  include_vars: "{{ ansible_os_family }}.yml"
-  when:
-    - ansible_os_family == 'Debian'
-    - not ansible_distribution == 'Ubuntu'
+# - name: Include version-specific variables for Ubuntu.
+#   include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+#   when: ansible_distribution == 'Ubuntu'
 
-- name: Include variables for Fedora
-  include_vars: "{{ ansible_distribution }}.yml"
-  when:
-    - ansible_distribution == 'Fedora'
+# - name: Include variables for Debian
+#   include_vars: "{{ ansible_os_family }}.yml"
+#   when:
+#     - ansible_os_family == 'Debian'
+#     - not ansible_distribution == 'Ubuntu'
+#
+# - name: Include variables for Fedora
+#   include_vars: "{{ ansible_distribution }}.yml"
+#   when:
+#     - ansible_distribution == 'Fedora'
 
 - name: Update Packages To Compile
   package:
@@ -36,7 +45,7 @@
   with_items: "{{ __gnucobol_dependencies }}"
 
 - name: Check if cobc is on path
-  command: /bin/bash cobc -V
+  shell: /bin/bash -l cobc -V
   register: __gnucobol_start_on_path
   changed_when: False
   ignore_errors: True
@@ -112,6 +121,8 @@
 #     target: check
 #   register: __gnucobol_checkResult
 #   when: not __gnucobol_version_already_installed or gnu_cobol_recompile
+
+
 
 - name: Make Check GnuCobol
   command: >
