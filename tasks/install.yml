@@ -93,3 +93,7 @@
     target: install
   register: __gnucobol_installResult
   when: not __gnucobol_version_already_installed or gnu_cobol_recompile
+
+- name: Update Shared Library Cache
+  command: /sbin/ldconfig
+  when: not __gnucobol_version_already_installed or gnu_cobol_recompile
