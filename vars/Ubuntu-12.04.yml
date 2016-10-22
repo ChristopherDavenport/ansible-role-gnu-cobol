@@ -5,12 +5,12 @@ __gnucobol_dependencies:
   - libc6-dev
   - libcob1
   - libcob1-dev
-  - libdb5.3
-  - libdb5.3-dev
+  - libdb5.1
+  - libdb5.1-dev
   - libgmp10
   - libgmp-dev
   - libltdl7
-  - libltdl-dev
+  - libltdl7-dev
   - libncurses5
   - libncurses5-dev
   - wget
