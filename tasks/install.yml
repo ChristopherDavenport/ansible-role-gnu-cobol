@@ -36,20 +36,18 @@
   with_items: "{{ __gnucobol_dependencies }}"
 
 - name: Check if cobc is on path
-  command: /bin/bash which cobc
-  register: __gnucobol_start_which
+  command: /bin/bash cobc -V
+  register: __gnucobol_start_on_path
   changed_when: False
   ignore_errors: True
 
-- debug: var=__gnucobol_start_which
+- debug: var=__gnucobol_start_on_path
 
 - name: Check Current Gnu Cobol Version
   command: /usr/local/bin/cobc -V
   register: __gnucobol_start_version
   changed_when: False
   ignore_errors: True
-
-- debug: var=__gnucobol_start_which
 
 - name: Fail If Incorrect Version Is Already Installed
   fail:
@@ -93,20 +91,36 @@
 
 - debug: var=__gnucobol_configureResult
 
+# - name: Make GnuCobol
+#   make:
+#     chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+# register: __gnucobol_makeResult
+# when: not __gnucobol_version_already_installed or gnu_cobol_recompile
+
 - name: Make GnuCobol
-  make:
-    chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+  command: >
+    chdir="{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+    /usr/bin/make
   register: __gnucobol_makeResult
   when: not __gnucobol_version_already_installed or gnu_cobol_recompile
 
 - debug: var=__gnucobol_makeResult
 
+# - name: Make Check GnuCobol
+#   make:
+#     chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+#     target: check
+#   register: __gnucobol_checkResult
+#   when: not __gnucobol_version_already_installed or gnu_cobol_recompile
+
 - name: Make Check GnuCobol
-  make:
-    chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
-    target: check
+  command: >
+    chdir="{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+    /usr/bin/make check
   register: __gnucobol_checkResult
   when: not __gnucobol_version_already_installed or gnu_cobol_recompile
+
+- debug: var=__gnucobol_checkResult
 
 - name: Make Test GnuCobol 2
   make:
