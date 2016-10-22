@@ -13,6 +13,7 @@ __gnucobol_dependencies:
   - libltdl-dev
   - libncurses5
   - libncurses5-dev
+  - perl
   - gcc
   - g++
   - make

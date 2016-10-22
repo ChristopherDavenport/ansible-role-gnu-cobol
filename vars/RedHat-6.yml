@@ -9,6 +9,7 @@ __gnucobol_dependencies:
   - ncurses-devel
   - ncurses-libs
   - libtool
+  - perl
   - gcc
   - gcc-c++
   - make

@@ -78,6 +78,15 @@
   register: __gnucobol_checkResult
   when: not __gnucobol_version_already_installed or gnu_cobol_recompile
 
+- name: Make Test GnuCobol 2
+  make:
+    chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+    target: test
+  register: __gnucobol_checkResult
+  when:
+    - not __gnucobol_version_already_installed or gnu_cobol_recompile
+    - gnu_cobol_version == "2"
+
 - name: Make Install GnuCobol
   make:
     chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
