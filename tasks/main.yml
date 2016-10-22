@@ -1,7 +1,7 @@
 ---
 
 - name: Include Variables for Specific GNUCobol Version
-  include_vars: "gnucobol-{{ gnu_cobol_version }}.yml"
+  include_vars: "gnucobol-{{ gnu_cobol_version | first }}.yml"
 
 - name: Include Either Install or Uninstall Tasks
   include: "{{ gnu_cobol_install | ternary('install', 'uninstall') }}.yml"

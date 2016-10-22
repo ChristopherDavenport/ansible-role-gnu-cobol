@@ -12,6 +12,11 @@ deployments, however this seems like a simple starting point
 for getting COBOL program off proprietary compilers and save
 us all some money in the process.
 
+The check pass is failing on version 1 for Ubuntu 16.04 and Fedora 24 however
+installation and compilation appears to be working correctly so if anyone
+would like to explain/fix this I would be appreciative. So that it can be
+added back to the tests. 
+
 ## Requirements
 
 None, it will make sure all dependencies are in place on

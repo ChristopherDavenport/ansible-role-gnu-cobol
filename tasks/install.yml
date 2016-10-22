@@ -73,9 +73,6 @@
     target: check
   register: __gnucobol_checkResult
   when: not __gnucobol_version_already_installed or gnu_cobol_recompile
-  ignore_errors: True
-
-- debug: var=__gnucobol_checkResult
 
 - name: Make Test GnuCobol 2
   make:
