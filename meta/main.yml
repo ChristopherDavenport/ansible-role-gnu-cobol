@@ -1,5 +1,4 @@
 ---
-dependencies: []
 
 galaxy_info:
   author: ChristopherDavenport
@@ -12,21 +11,20 @@ galaxy_info:
       versions:
         - 6
         - 7
-    # - name: Fedora
-    #   versions:
-    #     - all
+    - name: Fedora
+      versions:
+        - all
     - name: Ubuntu
       versions:
-        - xenial
-    # - name: Debian
-    #   versions:
-    #     - all
-    # - name: FreeBSD
-    #   versions:
-    #     - 10.2
+        - all
+    - name: Debian
+      versions:
+        - all
   galaxy_tags:
     - system
     - development
     - cobol
     - gnu
     - installer
+
+dependencies: []

@@ -1,0 +1,8 @@
+---
+
+__gnucobol_dependencies:
+  - wget
+  - perl
+  - gcc
+  - make
+  - tar

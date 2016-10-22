@@ -1,13 +1,5 @@
 ---
 
-- debug: var=ansible_os_family
-
-- debug: var=ansible_distribution
-
-- debug: var=ansible_distribution_major_version
-
-- debug: var=ansible_distribution_version
-
 - name: Include Operating System Variables
   include_vars: "{{ item }}"
   with_first_found:
@@ -17,40 +9,11 @@
     - "{{ ansible_os_family }}.yml"
     - "default.yml"
 
-# - name: Include version-specific variables for RedHat.
-#   include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
-#   when:
-#     - ansible_os_family == "RedHat"
-#     - (ansible_distribution_major_version == "6" or ansible_distribution_major_version == "7")
-
-# - name: Include version-specific variables for Ubuntu.
-#   include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-#   when: ansible_distribution == 'Ubuntu'
-
-# - name: Include variables for Debian
-#   include_vars: "{{ ansible_os_family }}.yml"
-#   when:
-#     - ansible_os_family == 'Debian'
-#     - not ansible_distribution == 'Ubuntu'
-#
-# - name: Include variables for Fedora
-#   include_vars: "{{ ansible_distribution }}.yml"
-#   when:
-#     - ansible_distribution == 'Fedora'
-
 - name: Update Packages To Compile
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ __gnucobol_dependencies }}"
-
-- name: Check if cobc is on path
-  shell: /bin/bash -l cobc -V
-  register: __gnucobol_start_on_path
-  changed_when: False
-  ignore_errors: True
-
-- debug: var=__gnucobol_start_on_path
 
 - name: Check Current Gnu Cobol Version
   command: /usr/local/bin/cobc -V
