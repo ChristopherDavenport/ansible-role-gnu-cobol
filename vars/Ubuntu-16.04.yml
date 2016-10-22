@@ -9,10 +9,11 @@ __gnucobol_dependencies:
   - libdb5.3-dev
   - libgmp10
   - libgmp-dev
-  - libltd17
+  - libltdl7
   - libltdl-dev
   - libncurses5
   - libncurses5-dev
+  - wget
   - perl
   - gcc
   - g++
