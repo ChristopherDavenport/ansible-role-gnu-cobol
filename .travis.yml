@@ -61,7 +61,7 @@ env:
 
 before_install:
   # Pull container
-  - 'docker pull ChristopherDavenport/docker-${distro}-ansible-test1:latest'
+  - 'docker pull christopherdavenport/docker-${distro}-ansible-test1:latest'
 
 script:
   - container_id=$(mktemp)
