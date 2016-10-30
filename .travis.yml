@@ -61,13 +61,13 @@ env:
 
 before_install:
   # Pull container
-  - 'docker pull christopherdavenport/docker-${distro}-ansible-test1:latest'
+  - 'docker pull christopherdavenport/ansible-container-${distro}-ansible-testing-testing:latest'
 
 script:
   - container_id=$(mktemp)
 
   # Run container in detached state.
-  - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} christopherdavenport/docker-${distro}-ansible-test1:latest "${init}" > "${container_id}"'
+  - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} christopherdavenport/ansible-container-${distro}-ansible-testing-testing:latest "${init}" > "${container_id}"'
 
   # Ansible syntax check.
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
