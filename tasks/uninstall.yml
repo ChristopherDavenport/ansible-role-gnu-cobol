@@ -7,7 +7,7 @@
 
 - name: Uninstall Program From make
   make:
-    chdir: "{{ gnu_cobol_base }}/{{ __gnucobol_unpacked_folder }}"
+    chdir: "{{ gnu_cobol_base }} /{{ __gnucobol_unpacked_folder }}"
     target: uninstall
   when: uninstallFolder.stat.exists
 
