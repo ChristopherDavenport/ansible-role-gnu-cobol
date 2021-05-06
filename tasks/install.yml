@@ -24,11 +24,11 @@
 - name: Fail If Incorrect Version Is Already Installed
   fail:
     msg: "Incorrect Version Already Installed: Please Rerun as uninstaller for {{ __gnucobol_start_version.stdout_lines[0][-6:] }}"
-  when: __gnucobol_start_version|success and not __gnucobol_version in __gnucobol_start_version.stdout_lines[0]
+  when: __gnucobol_start_version is success and not __gnucobol_version in __gnucobol_start_version.stdout_lines[0]
 
 - name: Command Succeeds and Version is Correct
   set_fact:
-    __gnucobol_version_already_installed: "{{ __gnucobol_start_version|success and __gnucobol_version in __gnucobol_start_version.stdout_lines[0] }}"
+    __gnucobol_version_already_installed: "{{ __gnucobol_start_version is success and __gnucobol_version in __gnucobol_start_version.stdout_lines[0] }}"
 
 - name: Download GNUCobol Source
   get_url:

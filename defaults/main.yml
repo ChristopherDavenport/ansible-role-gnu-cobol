@@ -1,9 +1,9 @@
 ---
 
 # Gnu-Cobol Version
-# Options are 1 and 2
+# Options are 1 2 3
 
-gnu_cobol_version: "2"
+gnu_cobol_version: "3"
 
 # Base Directory For Installation
 
