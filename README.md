@@ -40,7 +40,7 @@ you would like to run version 1 feel free to run that. If I get
 ambitious I might add the nightly into the mix.
 
 ```
-gnu_cobol_version: 2
+gnu_cobol_version: 3
 ```
 
 

@@ -4,5 +4,4 @@
   include_vars: "gnucobol-{{ gnu_cobol_version }}.yml"
 
 - name: Include Either Install or Uninstall Tasks
-  include: "{{ gnu_cobol_install | ternary('install', 'uninstall') }}.yml"
-  static: no
+  include_tasks: "{{ gnu_cobol_install | ternary('install', 'uninstall') }}.yml"
